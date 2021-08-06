@@ -2,6 +2,12 @@
 
 This package reads a specified pin and provides its status.
 
+_Installation_
+
+```bash
+$ PIPENV_VENV_IN_PROJECT=1 pipenv install --dev
+```
+
 _Usage_
 
 ```python
@@ -20,4 +26,11 @@ def deactivated():
 
 sensor.on_activate = activated
 sensor.on_deactivate = deactivated
+```
+
+_Tests_
+
+```bash
+$ pipenv shell
+$ pytest -v
 ```
