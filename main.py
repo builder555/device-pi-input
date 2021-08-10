@@ -1,15 +1,14 @@
 from threading import Timer
+from .interface import AbstractSensor
 try:
     from gpiozero import Button
 except:
     Button = None
 
-class SensorAdaptor:
+class SensorAdaptor(AbstractSensor):
 
     def __init__(self, pin_number, is_inverting=False):
         assert Button, 'This adaptor requires gpiozero library to be installed'
-        # using pull_up=True will fail for some sensors
-        # if they are too weak to pull it down sufficiently
         self.sensor = Button(pin_number, pull_up=False)
         self.__is_inverting = is_inverting
         self.__start_update_timer()
@@ -39,10 +38,10 @@ class SensorAdaptor:
         self.__on_inactive = callback
     
     def __start_update_timer(self):
-        self.timer = Timer(10, self.trigger_status_update)
+        self.timer = Timer(10, self.__trigger_status_update)
         self.timer.start()
 
-    def trigger_status_update(self):
+    def __trigger_status_update(self):
         if self.is_on:
             self.__on_active()
         else:

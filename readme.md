@@ -24,8 +24,8 @@ def activated():
 def deactivated():
     print('pin is deactivated')
 
-sensor.on_activate = activated
-sensor.on_deactivate = deactivated
+sensor.on_active = activated
+sensor.on_inactive = deactivated
 ```
 
 _Tests_
